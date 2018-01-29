@@ -2,6 +2,8 @@
 Title=抓取知乎粉丝
 Date=2018-01-24
 '''
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 # 导入模块
 import requests
