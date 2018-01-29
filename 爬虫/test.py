@@ -1,3 +1,7 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+
 from tornado import web, ioloop, httpserver
 
 #页面
@@ -16,7 +20,10 @@ class Login(web.RequestHandler):
         password=self.get_argument('password')
 #设置
 setting={
+    #设置模板路径
     'template_path':'templates' #和子文件夹名一样
+    #设置静态文件路径
+    ?????????????????????????????????
 }
 # 路由 分机
 application = web.Application([
