@@ -34,17 +34,14 @@ def option():
 
 def screen(options):
     # 截图
-    print(os.popen(
-        "adb shell screencap /sdcard/{filename}".format(filename=options.filename)).read())
+    os.popen("adb shell screencap /sdcard/{filename}".format(filename=options.filename)).read()
 
     # 截图导出
-    print(os.popen(r"adb pull /sdcard/{filename} {dir}".format(
-        filename=options.filename, dir=options.directory)).read())
+    os.popen(r"adb pull /sdcard/{filename} {dir}".format(filename=options.filename, dir=options.directory)).read()
     # 打开截图
     #print(os.popen(r"start {filename}".format(filename=options.filename)).read())
     # 删除截图
-    print(
-        os.popen("adb shell rm /sdcard/{filename}".format(filename=options.filename)))
+    os.popen("adb shell rm /sdcard/{filename}".format(filename=options.filename))
 
 
 def open(filename):
@@ -63,18 +60,21 @@ def touch(sign):
     # 模拟点击
     if sign == 1:
         print(os.system("adb shell input tap 540 1633"))
-        #print("touch1")
+        print("已成功处理点击，没有获得福卡，程序继续")
     if sign == 0:
         print(os.system("adb shell input tap 539 1470"))
-        #print("touch2")
+        print("已成功处理点击,成功获得福卡，程序继续")
     time.sleep(5)
 
 
 if __name__ == '__main__':
-    while 1==1 :
-        options, args = option()
-        screen(options)
-        sign = open(options.filename)
-        print(sign)
-        touch(sign)
-        os.remove(options.filename)
+    yn=input("请确定手机已连接电脑，并且电脑已安装ADB(Y/N)")
+    if yn=='y':
+        while 1==1 :
+            options, args = option()
+            screen(options)
+            sign = open(options.filename)
+            touch(sign)
+            os.remove(options.filename)
+    else:
+        exit()
