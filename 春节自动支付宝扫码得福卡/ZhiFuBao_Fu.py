@@ -68,7 +68,7 @@ def touch(sign):
 
 
 if __name__ == '__main__':
-    yn=input("请确定手机已连接电脑，并且电脑已安装ADB(Y/N)")
+    yn=input("请确定手机已连接电脑，并且电脑已安装ADB(y/n)")
     if yn=='y':
         while 1==1 :
             options, args = option()
